@@ -1,41 +1,47 @@
-export enum Role {
-  USER = 'user',
-  MODEL = 'model'
-}
-
 export interface Attachment {
-  mimeType: string;
-  data: string; // Base64
-}
-
-export interface GroundingChunk {
-  web?: { uri: string; title: string };
-  maps?: { 
-    uri: string; 
-    title: string; 
-    placeAnswerSources?: { reviewSnippets: any[] } 
-  };
+  name: string;
+  type: string;
+  data: string;
+  dataUrl: string;
 }
 
 export interface Message {
   id: string;
-  role: Role;
+  role: 'user' | 'model';
   text: string;
-  attachment?: Attachment;
-  groundingChunks?: GroundingChunk[];
-  timestamp: Date;
-  options?: string[]; // For interactive bot buttons (e.g., Age groups, Gender)
+  timestamp: number;
+  attachment?: Attachment; 
+  isError?: boolean;
+  suggestedPrompt?: string;
 }
 
-export interface ChatState {
+export interface ChatSession {
+  id: string;
+  mode: AppMode;
+  title: string;
+  preview: string;
+  date: string;
   messages: Message[];
-  isLoading: boolean;
-  error: string | null;
 }
 
-export interface UserProfile {
-  name: string;
-  phone: string;
+export interface UserState {
+  isLoggedIn: boolean;
+  email?: string;
+  name?: string;
+  phone?: string;
+  trials: {
+    [key in AppMode]: number; 
+  };
 }
 
-export type AppScreen = 'landing' | 'chat';
+export enum ViewState {
+  AUTH = 'AUTH',
+  DASHBOARD = 'DASHBOARD',
+  APP = 'APP',
+}
+
+export enum AppMode {
+  CHAT = 'CHAT',
+  IMAGE_GEN = 'IMAGE_GEN', 
+  PROMPT_ENG = 'PROMPT_ENG',
+}
