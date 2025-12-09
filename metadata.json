@@ -1,0 +1,9 @@
+{
+  "name": "AI AMAR Medicine",
+  "description": "A smart medical assistant application providing immediate and reliable medical answers using AI. Supports lab test analysis and health consultations.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
